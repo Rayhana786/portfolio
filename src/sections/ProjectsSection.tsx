@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FadeIn } from '../components/FadeIn.tsx';
@@ -306,36 +307,99 @@ const ProjectCard: React.FC<CardProps> = ({
   return (
     <div
       ref={containerRef}
-      className="h-[85vh] sm:h-[90vh] flex items-start justify-center sticky top-24 md:top-32"
+      className="
+        relative
+        w-full
+        min-h-0
+        flex
+        items-start
+        justify-center
+        mb-6
+        md:mb-0
+        md:h-[90vh]
+        md:sticky
+        md:top-32
+      "
     >
       <motion.div
         style={{
           scale,
           top: `${index * 28}px`,
         }}
-        className="w-full relative rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 shadow-2xl origin-top"
+        className="
+          w-full
+          relative
+          rounded-[28px]
+          sm:rounded-[36px]
+          md:rounded-[50px]
+          lg:rounded-[60px]
+          border-2
+          border-white/75
+          bg-[#0C0C0C]
+          p-4
+          min-[400px]:p-5
+          sm:p-6
+          md:p-8
+          shadow-2xl
+          origin-top
+          overflow-hidden
+        "
       >
         {/* Top row */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 sm:pb-8 border-b border-[#D7E2EA]/20">
-          <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+        <div className="
+          flex
+          flex-col
+          sm:flex-row
+          sm:items-center
+          justify-between
+          gap-4
+          pb-5
+          sm:pb-7
+          md:pb-8
+          border-b
+          border-white/25
+        ">
+          <div className="flex items-center gap-3 sm:gap-5 md:gap-6 min-w-0">
             <span
-              className="font-black text-[#D7E2EA] leading-none tracking-tighter select-none"
+              className="
+                font-black
+                text-white
+                leading-none
+                tracking-tighter
+                select-none
+                shrink-0
+              "
               style={{
-                fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+                fontSize: 'clamp(2.2rem, 6vw, 5rem)',
               }}
             >
               {project.number}
             </span>
 
-            <div className="space-y-1">
-              <span className="text-xs uppercase tracking-widest text-[#B600A8] font-semibold block">
+            <div className="space-y-1 min-w-0">
+              <span className="
+                text-[9px]
+                sm:text-xs
+                uppercase
+                tracking-widest
+                text-[#B600A8]
+                font-semibold
+                block
+              ">
                 {project.category}
               </span>
 
               <h3
-                className="font-black uppercase text-[#D7E2EA] tracking-tight leading-none"
+                className="
+                  font-black
+                  uppercase
+                  text-[#D7E2EA]
+                  tracking-tight
+                  leading-tight
+                  break-words
+                "
                 style={{
-                  fontSize: 'clamp(1.1rem, 2.8vw, 2.5rem)',
+                  fontSize: 'clamp(1.05rem, 2.8vw, 2.5rem)',
                 }}
               >
                 {project.title}
@@ -348,76 +412,219 @@ const ProjectCard: React.FC<CardProps> = ({
           </div>
         </div>
 
-        {/* Short project description */}
+        {/* Short description */}
         {project.shortDescription && (
           <div className="pt-4 sm:pt-5 pb-1">
-            <p className="text-xs sm:text-sm md:text-base text-[#D7E2EA]/65 leading-relaxed max-w-4xl">
+            <p className="
+              text-xs
+              sm:text-sm
+              md:text-base
+              text-[#D7E2EA]/65
+              leading-relaxed
+              max-w-4xl
+            ">
               {project.shortDescription}
             </p>
           </div>
         )}
 
-        {/* Frontend Mentor collection visual */}
+        {/* Frontend Mentor collection */}
         {isChallengeCollection ? (
           <button
             type="button"
             onClick={openProject}
             aria-label="Explore Frontend Mentor challenges"
-            className="w-full mt-4 sm:mt-6 min-h-[360px] sm:min-h-[420px] rounded-[30px] sm:rounded-[40px] border border-white/10 bg-[#111] p-5 sm:p-8 text-left overflow-hidden relative group"
+            className="
+              w-full
+              mt-4
+              sm:mt-6
+              min-h-[340px]
+              sm:min-h-[420px]
+              rounded-[24px]
+              sm:rounded-[35px]
+              md:rounded-[40px]
+              border
+              border-white/15
+              bg-[#111]
+              p-4
+              sm:p-6
+              md:p-8
+              text-left
+              overflow-hidden
+              relative
+              group
+            "
           >
-            <div className="absolute -top-24 -right-20 w-72 h-72 rounded-full bg-[#B600A8]/20 blur-[90px] group-hover:bg-[#B600A8]/30 transition-colors" />
+            <div className="
+              absolute
+              -top-24
+              -right-20
+              w-72
+              h-72
+              rounded-full
+              bg-[#B600A8]/20
+              blur-[90px]
+              group-hover:bg-[#B600A8]/30
+              transition-colors
+            " />
 
-            <div className="absolute -bottom-24 -left-20 w-72 h-72 rounded-full bg-purple-700/10 blur-[90px]" />
+            <div className="
+              absolute
+              -bottom-24
+              -left-20
+              w-72
+              h-72
+              rounded-full
+              bg-purple-700/10
+              blur-[90px]
+            " />
 
-            <div className="relative z-10 flex flex-col h-full justify-between gap-8">
-              <div className="flex items-start justify-between gap-4">
+            <div className="
+              relative
+              z-10
+              flex
+              flex-col
+              h-full
+              justify-between
+              gap-6
+              sm:gap-8
+            ">
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#B600A8] font-bold">
+                  <span className="
+                    text-[9px]
+                    sm:text-xs
+                    uppercase
+                    tracking-[0.2em]
+                    text-[#B600A8]
+                    font-bold
+                  ">
                     Frontend Practice Collection
                   </span>
 
-                  <h4 className="mt-3 text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white leading-none">
+                  <h4 className="
+                    mt-3
+                    text-3xl
+                    sm:text-5xl
+                    md:text-6xl
+                    font-black
+                    uppercase
+                    tracking-tight
+                    text-white
+                    leading-none
+                  ">
                     08
                     <span className="text-[#B600A8]">.</span>
                     <br />
                     Challenges
                   </h4>
 
-                  <p className="mt-3 text-xs sm:text-sm text-white/45 max-w-md leading-relaxed">
+                  <p className="
+                    mt-3
+                    text-xs
+                    sm:text-sm
+                    text-white/45
+                    max-w-md
+                    leading-relaxed
+                  ">
                     Eight practical projects demonstrating responsive
                     interfaces, JavaScript interactions, and frontend
                     development skills.
                   </p>
                 </div>
 
-                <span className="hidden sm:flex w-14 h-14 rounded-2xl border border-[#B600A8]/40 bg-[#B600A8]/10 items-center justify-center text-[#D65BCB] text-2xl font-black">
+                <span className="
+                  hidden
+                  sm:flex
+                  w-14
+                  h-14
+                  rounded-2xl
+                  border
+                  border-[#B600A8]/40
+                  bg-[#B600A8]/10
+                  items-center
+                  justify-center
+                  text-[#D65BCB]
+                  text-2xl
+                  font-black
+                  shrink-0
+                ">
                   FE
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              <div className="
+                grid
+                grid-cols-2
+                sm:grid-cols-4
+                gap-2
+                sm:gap-3
+              ">
                 {project.challenges?.map((challenge, challengeIndex) => (
                   <div
                     key={challenge.id}
-                    className="min-h-[72px] sm:min-h-[92px] rounded-xl border border-white/10 bg-white/[0.035] p-3 sm:p-4 flex flex-col justify-between group-hover:border-[#B600A8]/30 transition-colors"
+                    className="
+                      min-h-[68px]
+                      sm:min-h-[92px]
+                      rounded-xl
+                      border
+                      border-white/10
+                      bg-white/[0.035]
+                      p-2.5
+                      sm:p-4
+                      flex
+                      flex-col
+                      justify-between
+                      group-hover:border-[#B600A8]/30
+                      transition-colors
+                    "
                   >
                     <span className="text-[10px] font-mono text-[#B600A8]">
                       {String(challengeIndex + 1).padStart(2, '0')}
                     </span>
 
-                    <span className="text-[10px] sm:text-xs font-semibold text-white/75 leading-snug line-clamp-2">
+                    <span className="
+                      text-[10px]
+                      sm:text-xs
+                      font-semibold
+                      text-white/75
+                      leading-snug
+                      line-clamp-2
+                    ">
                       {challenge.title}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                <span className="text-[10px] sm:text-xs uppercase tracking-[0.18em] text-white/40">
+              <div className="
+                flex
+                items-center
+                justify-between
+                gap-2
+                border-t
+                border-white/10
+                pt-4
+              ">
+                <span className="
+                  text-[9px]
+                  sm:text-xs
+                  uppercase
+                  tracking-[0.15em]
+                  text-white/40
+                ">
                   Explore all 8 projects
                 </span>
 
-                <span className="text-xs font-bold text-[#D65BCB] group-hover:translate-x-1 transition-transform">
+                <span className="
+                  text-[10px]
+                  sm:text-xs
+                  font-bold
+                  text-[#D65BCB]
+                  group-hover:translate-x-1
+                  transition-transform
+                  shrink-0
+                ">
                   VIEW COLLECTION →
                 </span>
               </div>
@@ -425,20 +632,62 @@ const ProjectCard: React.FC<CardProps> = ({
           </button>
         ) : (
           /* Standard project image gallery */
-          <div className="pt-4 sm:pt-6 flex flex-col md:flex-row gap-4 sm:gap-6">
+          <div className="
+            pt-4
+            sm:pt-6
+            flex
+            flex-col
+            md:flex-row
+            gap-3
+            sm:gap-5
+            md:gap-6
+          ">
             {/* Left column */}
-            <div className="w-full md:w-[40%] flex flex-col gap-4 sm:gap-6">
+            <div className="
+              w-full
+              md:w-[40%]
+              flex
+              flex-col
+              gap-3
+              sm:gap-5
+              md:gap-6
+            ">
               <button
                 type="button"
                 onClick={openProject}
                 aria-label={`Open ${project.title} preview 1`}
-                className="w-full h-[150px] sm:h-[180px] md:h-[190px] overflow-hidden rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-neutral-900 border border-white/10 group flex items-center justify-center"
+                className="
+                  w-full
+                  h-[145px]
+                  min-[400px]:h-[165px]
+                  sm:h-[190px]
+                  md:h-[190px]
+                  overflow-hidden
+                  rounded-[22px]
+                  sm:rounded-[35px]
+                  md:rounded-[45px]
+                  bg-neutral-900
+                  border
+                  border-white/15
+                  group
+                  flex
+                  items-center
+                  justify-center
+                "
               >
                 <img
                   src={project.col1Img1}
                   alt={`${project.title} preview 1`}
+                  loading="lazy"
                   referrerPolicy="no-referrer"
-                  className={`w-full h-full ${imageFitClass} group-hover:scale-[1.03] transition-transform duration-500`}
+                  className={`
+                    w-full
+                    h-full
+                    ${imageFitClass}
+                    group-hover:scale-[1.03]
+                    transition-transform
+                    duration-500
+                  `}
                 />
               </button>
 
@@ -446,29 +695,81 @@ const ProjectCard: React.FC<CardProps> = ({
                 type="button"
                 onClick={openProject}
                 aria-label={`Open ${project.title} preview 2`}
-                className="w-full h-[170px] sm:h-[210px] md:h-[220px] overflow-hidden rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-neutral-900 border border-white/10 group flex items-center justify-center"
+                className="
+                  w-full
+                  h-[155px]
+                  min-[400px]:h-[175px]
+                  sm:h-[210px]
+                  md:h-[220px]
+                  overflow-hidden
+                  rounded-[22px]
+                  sm:rounded-[35px]
+                  md:rounded-[45px]
+                  bg-neutral-900
+                  border
+                  border-white/15
+                  group
+                  flex
+                  items-center
+                  justify-center
+                "
               >
                 <img
                   src={project.col1Img2}
                   alt={`${project.title} preview 2`}
+                  loading="lazy"
                   referrerPolicy="no-referrer"
-                  className={`w-full h-full ${imageFitClass} group-hover:scale-[1.03] transition-transform duration-500`}
+                  className={`
+                    w-full
+                    h-full
+                    ${imageFitClass}
+                    group-hover:scale-[1.03]
+                    transition-transform
+                    duration-500
+                  `}
                 />
               </button>
             </div>
 
-            {/* Right column */}
+            {/* Main image */}
             <button
               type="button"
               onClick={openProject}
               aria-label={`Open ${project.title} main preview`}
-              className="w-full md:w-[60%] h-[280px] sm:h-[350px] md:h-[426px] shrink-0 overflow-hidden rounded-[30px] sm:rounded-[40px] md:rounded-[50px] bg-neutral-900 border border-white/10 group flex items-center justify-center"
+              className="
+                w-full
+                md:w-[60%]
+                h-[220px]
+                min-[400px]:h-[250px]
+                sm:h-[330px]
+                md:h-[426px]
+                shrink-0
+                overflow-hidden
+                rounded-[22px]
+                sm:rounded-[35px]
+                md:rounded-[45px]
+                bg-neutral-900
+                border
+                border-white/15
+                group
+                flex
+                items-center
+                justify-center
+              "
             >
               <img
                 src={project.col2Img}
                 alt={`${project.title} main preview`}
+                loading="lazy"
                 referrerPolicy="no-referrer"
-                className={`w-full h-full ${imageFitClass} group-hover:scale-[1.03] transition-transform duration-500`}
+                className={`
+                  w-full
+                  h-full
+                  ${imageFitClass}
+                  group-hover:scale-[1.03]
+                  transition-transform
+                  duration-500
+                `}
               />
             </button>
           </div>
@@ -484,14 +785,42 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   return (
     <section
       id="projects"
-      className="w-full bg-[#0C0C0C] text-[#D7E2EA] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 relative pt-20 sm:pt-24 md:pt-32 pb-16 px-4 sm:px-6 md:px-10"
+      className="
+        w-full
+        bg-[#0C0C0C]
+        text-[#D7E2EA]
+        rounded-t-[40px]
+        sm:rounded-t-[50px]
+        md:rounded-t-[60px]
+        -mt-10
+        sm:-mt-12
+        md:-mt-14
+        z-10
+        relative
+        pt-16
+        sm:pt-24
+        md:pt-32
+        pb-12
+        sm:pb-16
+        px-4
+        sm:px-6
+        md:px-10
+      "
     >
       <div className="max-w-6xl mx-auto">
         {/* Section heading */}
-        <div className="text-center mb-16 sm:mb-20 md:mb-24">
+        <div className="text-center mb-10 sm:mb-16 md:mb-24">
           <FadeIn delay={0} y={40}>
             <h2
-              className="hero-heading font-black uppercase text-center leading-none tracking-tight select-none"
+              className="
+                hero-heading
+                font-black
+                uppercase
+                text-center
+                leading-none
+                tracking-tight
+                select-none
+              "
               style={{
                 fontSize: 'clamp(3rem, 12vw, 160px)',
               }}
@@ -501,8 +830,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </FadeIn>
         </div>
 
-        {/* Sticky project cards */}
-        <div className="relative pb-32">
+        {/* Project cards */}
+        <div className="
+          relative
+          pb-4
+          md:pb-32
+        ">
           {PROJECTS.map((project, index) => (
             <ProjectCard
               key={project.id}

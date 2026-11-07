@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+
 import {
   Mail,
   Github,
@@ -9,7 +10,9 @@ import {
   AlertCircle,
   Loader2,
 } from 'lucide-react';
+
 import { FaWhatsapp } from 'react-icons/fa';
+
 import { FadeIn } from '../components/FadeIn.tsx';
 import { SOCIALS_DATA } from '../data/socials.ts';
 
@@ -32,6 +35,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
+
   const [status, setStatus] = useState<
     'idle' | 'sending' | 'success' | 'error'
   >('idle');
@@ -48,6 +52,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // Form validation
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
 
@@ -74,10 +79,14 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Submit form
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     // Honeypot protection
@@ -95,33 +104,38 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     setStatus('sending');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-          subject: `Portfolio Inquiry from ${formData.name.trim()}`,
-          from_name: 'Raihana Khelifati Portfolio',
-          botcheck: formData.botcheck,
-        }),
-      });
+      const response = await fetch(
+        'https://api.web3forms.com/submit',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            message: formData.message.trim(),
+            subject: `Portfolio Inquiry from ${formData.name.trim()}`,
+            from_name: 'Raihana Khelifati Portfolio',
+            botcheck: formData.botcheck,
+          }),
+        }
+      );
 
       const result = await response.json();
 
       if (response.ok && result.success) {
         setStatus('success');
+
         setFormData({
           name: '',
           email: '',
           message: '',
           botcheck: '',
         });
+
         setErrors({});
         setCountdown(30);
       } else {
@@ -132,6 +146,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     }
   };
 
+  // Contact cards
   const contactCards = [
     {
       id: 'email',
@@ -163,15 +178,19 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
     },
   ];
 
+  const availableContacts = contactCards.filter(
+    (card) => card.href && card.href.trim() !== ''
+  );
+
   return (
     <section
       id="contact"
-      className="w-full bg-[#0C0C0C] text-[#D7E2EA] mt-20 sm:mt-28 md:mt-32 py-24 sm:py-32 px-5 sm:px-8 md:px-10 border-t border-white/10 relative"
+      className="w-full min-w-0 bg-[#0C0C0C] text-[#D7E2EA] mt-16 sm:mt-24 md:mt-28 py-16 sm:py-24 md:py-28 px-4 min-[480px]:px-5 sm:px-8 md:px-10 border-t border-white/10 relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto space-y-12 sm:space-y-16">
+      <div className="w-full max-w-6xl mx-auto space-y-10 sm:space-y-12 md:space-y-16">
 
         {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto space-y-4">
+        <div className="text-center w-full max-w-2xl mx-auto space-y-4">
           <FadeIn delay={0} y={30}>
             <h2
               className="hero-heading font-black uppercase text-center leading-none tracking-tight select-none"
@@ -182,31 +201,32 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
           </FadeIn>
 
           <FadeIn delay={0.1} y={20}>
-            <p className="text-sm sm:text-base md:text-lg text-[#D7E2EA]/80 font-light leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-[#D7E2EA]/80 font-light leading-relaxed px-2">
               Have a project in mind? Send me a message and I&apos;ll reply as soon as possible.
             </p>
           </FadeIn>
         </div>
 
         {/* Contact Form + Social Links */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 lg:gap-8 items-start">
 
           {/* Contact Form */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 min-w-0">
             <FadeIn delay={0.2} y={30}>
-              <div className="rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/90 p-6 sm:p-8 md:p-10 shadow-2xl">
+              <div className="w-full min-w-0 rounded-2xl sm:rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/90 p-4 min-[400px]:p-5 sm:p-7 md:p-9 lg:p-10 shadow-2xl">
 
                 {status === 'success' ? (
-                  <div className="text-center py-12 space-y-4">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+                  <div className="text-center py-10 sm:py-12 space-y-4">
+
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
                       <Check size={32} />
                     </div>
 
-                    <h3 className="text-2xl font-bold uppercase tracking-tight text-white">
+                    <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-white">
                       Message sent!
                     </h3>
 
-                    <p className="text-sm text-[#D7E2EA]/80 max-w-md mx-auto">
+                    <p className="text-sm text-[#D7E2EA]/80 max-w-md mx-auto leading-relaxed">
                       Thank you for reaching out. Your message has been sent successfully. I&apos;ll get back to you soon.
                     </p>
 
@@ -220,7 +240,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                       type="button"
                       disabled={countdown > 0}
                       onClick={() => setStatus('idle')}
-                      className="mt-4 px-6 py-3 rounded-full border border-[#00E5FF]/40 text-[#00E5FF] text-xs uppercase tracking-widest hover:bg-[#00E5FF]/10 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="mt-4 px-5 sm:px-6 py-3 rounded-full border border-[#00E5FF]/40 text-[#00E5FF] text-xs uppercase tracking-widest hover:bg-[#00E5FF]/10 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Send another message
                     </button>
@@ -234,7 +254,10 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
 
                     {/* Honeypot */}
                     <div className="hidden" aria-hidden="true">
-                      <label htmlFor="botcheck">Do not fill this</label>
+                      <label htmlFor="botcheck">
+                        Do not fill this
+                      </label>
+
                       <input
                         id="botcheck"
                         name="botcheck"
@@ -273,11 +296,15 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                             ...formData,
                             name: e.target.value,
                           });
+
                           if (errors.name) {
-                            setErrors({ ...errors, name: undefined });
+                            setErrors({
+                              ...errors,
+                              name: undefined,
+                            });
                           }
                         }}
-                        className={`w-full bg-black/50 border rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all ${
+                        className={`w-full min-w-0 bg-black/50 border rounded-xl sm:rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all ${
                           errors.name
                             ? 'border-red-500/80 ring-1 ring-red-500/50'
                             : 'border-[#D7E2EA]/25'
@@ -313,11 +340,15 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                             ...formData,
                             email: e.target.value,
                           });
+
                           if (errors.email) {
-                            setErrors({ ...errors, email: undefined });
+                            setErrors({
+                              ...errors,
+                              email: undefined,
+                            });
                           }
                         }}
-                        className={`w-full bg-black/50 border rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all ${
+                        className={`w-full min-w-0 bg-black/50 border rounded-xl sm:rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all ${
                           errors.email
                             ? 'border-red-500/80 ring-1 ring-red-500/50'
                             : 'border-[#D7E2EA]/25'
@@ -354,21 +385,25 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                             ...formData,
                             message: e.target.value,
                           });
+
                           if (errors.message) {
-                            setErrors({ ...errors, message: undefined });
+                            setErrors({
+                              ...errors,
+                              message: undefined,
+                            });
                           }
                         }}
-                        className={`w-full bg-black/50 border rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all resize-none ${
+                        className={`w-full min-w-0 bg-black/50 border rounded-xl sm:rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF] transition-all resize-y min-h-[120px] ${
                           errors.message
                             ? 'border-red-500/80 ring-1 ring-red-500/50'
                             : 'border-[#D7E2EA]/25'
                         }`}
                       />
 
-                      <div className="flex justify-between items-center mt-1.5">
+                      <div className="flex flex-wrap justify-between items-center gap-2 mt-1.5">
                         {errors.message ? (
-                          <p className="text-xs text-red-400 flex items-center gap-1">
-                            <AlertCircle size={13} />
+                          <p className="text-xs text-red-400 flex items-center gap-1 min-w-0">
+                            <AlertCircle size={13} className="shrink-0" />
                             {errors.message}
                           </p>
                         ) : (
@@ -377,7 +412,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                           </span>
                         )}
 
-                        <span className="text-[11px] text-white/40 font-mono">
+                        <span className="text-[11px] text-white/40 font-mono ml-auto">
                           {formData.message.length}/1000
                         </span>
                       </div>
@@ -385,8 +420,8 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
 
                     {/* Error */}
                     {status === 'error' && (
-                      <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300 flex items-center gap-2">
-                        <AlertCircle size={16} className="shrink-0" />
+                      <div className="p-3 sm:p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300 flex items-start gap-2">
+                        <AlertCircle size={16} className="shrink-0 mt-0.5" />
                         <span>
                           Message could not be sent. Please try again or contact me directly by email.
                         </span>
@@ -398,7 +433,7 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                       <button
                         type="submit"
                         disabled={status === 'sending' || countdown > 0}
-                        className="w-full contact-btn py-3.5 sm:py-4 rounded-full text-white font-medium uppercase tracking-widest text-xs sm:text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed select-none"
+                        className="w-full contact-btn py-3.5 sm:py-4 px-3 rounded-full text-white font-medium uppercase tracking-widest text-xs sm:text-sm md:text-base flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed select-none"
                       >
                         {status === 'sending' ? (
                           <>
@@ -415,41 +450,87 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
                         )}
                       </button>
                     </div>
+
                   </form>
                 )}
               </div>
             </FadeIn>
           </div>
 
-          {/* Contact Cards */}
-          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-            {contactCards
-              .filter((card) => card.href && card.href.trim() !== '')
-              .map((card, idx) => (
-                <FadeIn key={card.id} delay={0.25 + idx * 0.05} y={20}>
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-5 rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/80 hover:border-[#00E5FF]/50 hover:-translate-y-1 transition-all duration-200 group shadow-lg cursor-pointer"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                      {card.icon}
-                    </div>
+          {/* Mobile: Circular Social Icons Only */}
+          <div className="sm:hidden w-full pt-3">
+            <FadeIn delay={0.25} y={20}>
+              <div className="text-center space-y-5">
+                <p className="text-[10px] uppercase tracking-[0.25em] text-[#D7E2EA]/50 font-medium">
+                  Find me elsewhere
+                </p>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs uppercase tracking-wider text-[#D7E2EA]/60 font-medium">
-                        {card.label}
-                      </div>
-
-                      <div className="text-sm font-semibold text-[#D7E2EA] truncate group-hover:text-white transition-colors">
-                        {card.value}
-                      </div>
-                    </div>
-                  </a>
-                </FadeIn>
-              ))}
+                <div className="flex items-center justify-center gap-4 min-[380px]:gap-5">
+                  {availableContacts.map((card, idx) => (
+                    <FadeIn
+                      key={card.id}
+                      delay={0.3 + idx * 0.06}
+                      y={12}
+                    >
+                      <a
+                        href={card.href}
+                        target={card.id === 'email' ? undefined : '_blank'}
+                        rel={
+                          card.id === 'email'
+                            ? undefined
+                            : 'noopener noreferrer'
+                        }
+                        aria-label={card.label}
+                        title={card.label}
+                        className="w-12 h-12 min-[380px]:w-14 min-[380px]:h-14 rounded-full border border-white/15 bg-white/[0.04] flex items-center justify-center transition-all duration-300 hover:border-[#00E5FF]/70 hover:bg-[#00E5FF]/10 hover:-translate-y-1 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5FF]"
+                      >
+                        {React.cloneElement(card.icon, {
+                          size: 21,
+                        })}
+                      </a>
+                    </FadeIn>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
+
+          {/* Tablet + Desktop: Social Cards */}
+          <div className="hidden sm:grid lg:col-span-5 min-w-0 grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
+            {availableContacts.map((card, idx) => (
+              <FadeIn
+                key={card.id}
+                delay={0.25 + idx * 0.05}
+                y={20}
+              >
+                <a
+                  href={card.href}
+                  target={card.id === 'email' ? undefined : '_blank'}
+                  rel={
+                    card.id === 'email'
+                      ? undefined
+                      : 'noopener noreferrer'
+                  }
+                  className="flex min-w-0 items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/80 hover:border-[#00E5FF]/50 hover:-translate-y-1 transition-all duration-200 group shadow-lg cursor-pointer"
+                >
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    {card.icon}
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs uppercase tracking-wider text-[#D7E2EA]/60 font-medium">
+                      {card.label}
+                    </div>
+
+                    <div className="text-sm font-semibold text-[#D7E2EA] truncate group-hover:text-white transition-colors">
+                      {card.value}
+                    </div>
+                  </div>
+                </a>
+              </FadeIn>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>

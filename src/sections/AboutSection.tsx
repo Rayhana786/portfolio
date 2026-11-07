@@ -175,13 +175,21 @@ function CornerObject({ kind, color }: CornerObjectProps) {
   );
 }
 
+// ─────────────────────────────────────────────
+// RESPONSIVE 3D ICON
+// ─────────────────────────────────────────────
+
 function ThreeDIcon({ kind, color }: CornerObjectProps) {
   return (
-    <div className="w-28 h-28">
+    <div className="w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28">
       <Canvas
         camera={{ position: [0, 0, 3.5], fov: 45 }}
-        dpr={[1, 1.5]}
-        gl={{ alpha: true, antialias: true }}
+        dpr={[1, 1.25]}
+        gl={{
+          alpha: true,
+          antialias: false,
+          powerPreference: 'low-power',
+        }}
       >
         <ambientLight intensity={1.4} />
         <directionalLight position={[3, 4, 5]} intensity={2.5} />
@@ -220,65 +228,101 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="min-h-screen relative flex flex-col items-center justify-center px-5 sm:px-8 md:px-10 py-20 bg-[#0C0C0C] overflow-hidden select-none"
+      className="
+        min-h-screen w-full relative
+        flex flex-col items-center justify-center
+        px-4 min-[400px]:px-5 sm:px-8 md:px-10
+        py-16 sm:py-20 lg:py-24
+        bg-[#0C0C0C]
+        overflow-hidden
+        select-none
+      "
     >
+
       {/* Top-left: 3D Code */}
-      <div className="hidden lg:block absolute top-[10%] left-[5%] z-10 pointer-events-none">
-        <FadeIn delay={0.1} x={-80} y={0} duration={0.9}>
+      <div className="absolute top-[2%] left-[1%] sm:top-[4%] sm:left-[3%] lg:top-[10%] lg:left-[5%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+        <FadeIn delay={0.1} x={-40} y={0} duration={0.9}>
           <ThreeDIcon kind="code" color="#00E5FF" />
         </FadeIn>
       </div>
 
       {/* Bottom-left: 3D Database */}
-      <div className="hidden lg:block absolute bottom-[12%] left-[6%] z-10 pointer-events-none">
-        <FadeIn delay={0.25} x={-80} y={0} duration={0.9}>
+      <div className="absolute bottom-[2%] left-[1%] sm:bottom-[4%] sm:left-[3%] lg:bottom-[12%] lg:left-[6%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+        <FadeIn delay={0.25} x={-40} y={0} duration={0.9}>
           <ThreeDIcon kind="database" color="#38BDF8" />
         </FadeIn>
       </div>
 
       {/* Top-right: 3D Layers */}
-      <div className="hidden lg:block absolute top-[10%] right-[5%] z-10 pointer-events-none">
-        <FadeIn delay={0.15} x={80} y={0} duration={0.9}>
+      <div className="absolute top-[2%] right-[1%] sm:top-[4%] sm:right-[3%] lg:top-[10%] lg:right-[5%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+        <FadeIn delay={0.15} x={40} y={0} duration={0.9}>
           <ThreeDIcon kind="layers" color="#7C3AED" />
         </FadeIn>
       </div>
 
       {/* Bottom-right: 3D Shield */}
-      <div className="hidden lg:block absolute bottom-[12%] right-[6%] z-10 pointer-events-none">
-        <FadeIn delay={0.3} x={80} y={0} duration={0.9}>
+      <div className="absolute bottom-[2%] right-[1%] sm:bottom-[4%] sm:right-[3%] lg:bottom-[12%] lg:right-[6%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+        <FadeIn delay={0.3} x={40} y={0} duration={0.9}>
           <ThreeDIcon kind="shield" color="#10B981" />
         </FadeIn>
       </div>
 
-      {/* Centered Content */}
-      <div className="relative z-20 flex flex-col items-center justify-center text-center max-w-4xl mx-auto space-y-10 sm:space-y-12">
+      {/* Main Content */}
+      <div className="
+        relative z-20
+        w-full max-w-5xl mx-auto
+        flex flex-col items-center justify-center
+        text-center
+        gap-7 sm:gap-9 lg:gap-12
+      ">
 
+        {/* Heading */}
         <FadeIn delay={0} y={40}>
           <h2
-            className="hero-heading font-black uppercase leading-none tracking-tight text-center"
-            style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
+            className="hero-heading font-black uppercase leading-none tracking-tight text-center break-words"
+            style={{ fontSize: 'clamp(2.75rem, 12vw, 160px)' }}
           >
             About me
           </h2>
         </FadeIn>
 
-        <AnimatedText
-          maxWidth="640px"
-          text="I'm a Computer Science Engineering student at ESI Sidi Bel Abbès, focused on full-stack development. I enjoy building complete digital products: clean interfaces, solid backend systems, and databases that solve real problems. I'm also a cybersecurity student, curious about how systems work and how they can be made more secure, so I'm exploring ethical hacking and CTF challenges on the side. Let's build something great together!"
-        />
+        {/* Description */}
+        <div className="w-full px-2 sm:px-4">
+          <AnimatedText
+            maxWidth="640px"
+            text="I'm a Computer Science Engineering student at ESI Sidi Bel Abbès, focused on full-stack development. I enjoy building complete digital products: clean interfaces, solid backend systems, and databases that solve real problems. I'm also a cybersecurity student, curious about how systems work and how they can be made more secure, so I'm exploring ethical hacking and CTF challenges on the side. Let's build something great together!"
+          />
+        </div>
 
+        {/* Information Cards */}
         <FadeIn delay={0.2} y={30} className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full text-left">
+          <div className="
+            grid grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            gap-3 sm:gap-4 lg:gap-6
+            w-full text-left
+          ">
 
             {/* Full-Stack Focus */}
-            <div className="rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/80 p-6 flex flex-col justify-between hover:border-[#00E5FF]/40 transition-colors shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-[#00E5FF]/10 text-[#00E5FF] flex items-center justify-center mb-4">
-                <Layers size={24} />
+            <div className="
+              min-w-0 rounded-2xl sm:rounded-3xl
+              border border-[#D7E2EA]/20
+              bg-[#121212]/80
+              p-4 sm:p-5 lg:p-6
+              flex flex-col justify-between
+              hover:border-[#00E5FF]/40
+              transition-colors shadow-lg
+            ">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#00E5FF]/10 text-[#00E5FF] flex items-center justify-center mb-4">
+                <Layers size={22} />
               </div>
+
               <div>
-                <h3 className="text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-1">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-2">
                   Full-Stack Focus
                 </h3>
+
                 <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Building responsive client interfaces with React, backed by Node.js &amp; Express APIs and structured databases.
                 </p>
@@ -286,14 +330,24 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Cybersecurity Studies */}
-            <div className="rounded-3xl border border-[#D7E2EA]/20 bg-[#121212]/80 p-6 flex flex-col justify-between hover:border-[#7C3AED]/40 transition-colors shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-[#7C3AED]/10 text-[#A78BFA] flex items-center justify-center mb-4">
-                <GraduationCap size={24} />
+            <div className="
+              min-w-0 rounded-2xl sm:rounded-3xl
+              border border-[#D7E2EA]/20
+              bg-[#121212]/80
+              p-4 sm:p-5 lg:p-6
+              flex flex-col justify-between
+              hover:border-[#7C3AED]/40
+              transition-colors shadow-lg
+            ">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#7C3AED]/10 text-[#A78BFA] flex items-center justify-center mb-4">
+                <GraduationCap size={22} />
               </div>
+
               <div>
-                <h3 className="text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-1">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-2">
                   Cybersecurity Studies
                 </h3>
+
                 <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Studying Cybersecurity at ESI Sidi Bel Abbès, exploring networking, artificial intelligence, software development, and system security.
                 </p>
@@ -301,14 +355,25 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Security Curious */}
-            <div className="rounded-3xl border border-[#10B981]/30 bg-[#0E1513]/80 p-6 flex flex-col justify-between hover:border-[#10B981]/60 transition-colors shadow-lg">
-              <div className="w-12 h-12 rounded-2xl bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mb-4">
-                <ShieldCheck size={24} />
+            <div className="
+              min-w-0 rounded-2xl sm:rounded-3xl
+              border border-[#10B981]/30
+              bg-[#0E1513]/80
+              p-4 sm:p-5 lg:p-6
+              flex flex-col justify-between
+              hover:border-[#10B981]/60
+              transition-colors shadow-lg
+              sm:col-span-2 lg:col-span-1
+            ">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mb-4">
+                <ShieldCheck size={22} />
               </div>
+
               <div>
-                <h3 className="text-lg font-bold uppercase text-[#10B981] tracking-wide mb-1">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#10B981] tracking-wide mb-2">
                   Security Curious
                 </h3>
+
                 <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Learning defense mechanisms, hands-on CTF problem solving, and understanding how to write secure code.
                 </p>
@@ -320,7 +385,12 @@ export const AboutSection: React.FC = () => {
 
         {/* Contact and CV Buttons */}
         <FadeIn delay={0.3} y={20}>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="
+            flex flex-col min-[420px]:flex-row
+            flex-wrap items-center justify-center
+            gap-3 sm:gap-4
+            w-full
+          ">
             <ContactButton
               onClick={handleContactClick}
               label="Contact Me"
