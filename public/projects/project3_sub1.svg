@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="600" height="350">
+  <rect width="600" height="350" fill="#0C1717"/>
+  <rect x="30" y="30" width="540" height="290" rx="14" fill="#112424" stroke="#1F4242" stroke-width="1.5"/>
+  <text x="60" y="70" fill="#10B981" font-family="sans-serif" font-size="16" font-weight="bold">Core Logic &amp; Verification</text>
+  <rect x="60" y="100" width="480" height="180" rx="8" fill="#163030"/>
+  <text x="80" y="135" fill="#D7E2EA" font-family="monospace" font-size="12">def validate_request(payload):</text>
+  <text x="100" y="160" fill="#38BDF8" font-family="monospace" font-size="12">if not payload.get('token'): return False</text>
+  <text x="100" y="185" fill="#10B981" font-family="monospace" font-size="12">return sanitize_input(payload['data'])</text>
+  <text x="80" y="225" fill="#64748B" font-family="monospace" font-size="12"># Strict type checking &amp; defensive boundaries</text>
+</svg>

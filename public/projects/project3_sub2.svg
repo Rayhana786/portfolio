@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="600" height="450">
+  <rect width="600" height="450" fill="#0C1717"/>
+  <rect x="30" y="30" width="540" height="390" rx="14" fill="#112424" stroke="#1F4242" stroke-width="1.5"/>
+  <text x="60" y="70" fill="#D7E2EA" font-family="sans-serif" font-size="16" font-weight="bold">System Verification &amp; Testing</text>
+  <rect x="60" y="100" width="480" height="280" rx="8" fill="#163030"/>
+  <text x="80" y="140" fill="#10B981" font-family="monospace" font-size="13">PASS tests/auth.spec.ts</text>
+  <text x="80" y="170" fill="#10B981" font-family="monospace" font-size="13">PASS tests/database_integrity.spec.ts</text>
+  <text x="80" y="200" fill="#10B981" font-family="monospace" font-size="13">PASS tests/input_sanitization.spec.ts</text>
+  <text x="80" y="240" fill="#94A3B8" font-family="monospace" font-size="12">Tests: 18 passed, 18 total</text>
+</svg>

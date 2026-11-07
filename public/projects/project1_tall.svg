@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14141E"/>
+      <stop offset="100%" stop-color="#0A0A10"/>
+    </linearGradient>
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg1)"/>
+  <!-- UI Window Frame -->
+  <rect x="40" y="40" width="720" height="420" rx="16" fill="#181824" stroke="#2A2A3C" stroke-width="2"/>
+  <circle cx="70" cy="70" r="6" fill="#EF4444"/>
+  <circle cx="90" cy="70" r="6" fill="#F59E0B"/>
+  <circle cx="110" cy="70" r="6" fill="#10B981"/>
+  <!-- Header Bar -->
+  <rect x="140" y="60" width="240" height="20" rx="6" fill="#252538"/>
+  <!-- App content mockup -->
+  <rect x="70" y="110" width="200" height="320" rx="12" fill="#1F1F30" stroke="#32324A" stroke-width="1"/>
+  <rect x="290" y="110" width="440" height="150" rx="12" fill="#1F1F30" stroke="#32324A" stroke-width="1"/>
+  <rect x="290" y="280" width="440" height="150" rx="12" fill="#1F1F30" stroke="#32324A" stroke-width="1"/>
+  <!-- Accent Line -->
+  <rect x="290" y="110" width="440" height="4" fill="url(#cyan-glow)"/>
+  <text x="400" y="255" fill="#D7E2EA" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Full-Stack Application Architecture</text>
+  <text x="400" y="285" fill="#7C3AED" font-family="sans-serif" font-size="14" text-anchor="middle">React • Node.js • Express • PostgreSQL</text>
+</svg>

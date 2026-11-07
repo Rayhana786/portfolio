@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="600" height="350">
+  <defs>
+    <linearGradient id="bg_sub1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181528"/>
+      <stop offset="100%" stop-color="#0E0C18"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="350" fill="url(#bg_sub1)"/>
+  <rect x="30" y="30" width="540" height="290" rx="14" fill="#131120" stroke="#2D2845" stroke-width="1.5"/>
+  <circle cx="60" cy="55" r="5" fill="#00E5FF"/>
+  <text x="80" y="60" fill="#D7E2EA" font-family="monospace" font-size="12">POST /api/v1/auth/login [200 OK]</text>
+  <rect x="50" y="85" width="500" height="210" rx="8" fill="#1B172E"/>
+  <text x="70" y="125" fill="#00E5FF" font-family="monospace" font-size="13">{"status": "success", "authenticated": true}</text>
+  <text x="70" y="155" fill="#7C3AED" font-family="monospace" font-size="13">{"role": "user", "session": "active"}</text>
+  <text x="70" y="185" fill="#10B981" font-family="monospace" font-size="13">// JWT verified • Argon2 hashed password</text>
+</svg>

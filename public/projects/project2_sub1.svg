@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="600" height="350">
+  <rect width="600" height="350" fill="#140E24"/>
+  <rect x="30" y="30" width="540" height="290" rx="14" fill="#1C1433" stroke="#3D296B" stroke-width="1.5"/>
+  <text x="60" y="70" fill="#D7E2EA" font-family="sans-serif" font-size="16" font-weight="bold">Component Hierarchy &amp; Hooks</text>
+  <rect x="60" y="100" width="480" height="40" rx="6" fill="#281C4A"/>
+  <text x="80" y="125" fill="#00E5FF" font-family="monospace" font-size="13">const [data, setData] = useState&lt;Entity[]&gt;([]);</text>
+  <rect x="60" y="155" width="480" height="40" rx="6" fill="#281C4A"/>
+  <text x="80" y="180" fill="#7C3AED" font-family="monospace" font-size="13">const { loading, error } = useAsyncHandler();</text>
+  <rect x="60" y="210" width="480" height="80" rx="6" fill="#231842"/>
+  <text x="80" y="245" fill="#10B981" font-family="monospace" font-size="12">// Modular presentation • Zero re-render leaks</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" width="600" height="450">
+  <rect width="600" height="450" fill="#140E24"/>
+  <rect x="30" y="30" width="540" height="390" rx="14" fill="#1C1433" stroke="#3D296B" stroke-width="1.5"/>
+  <text x="60" y="70" fill="#7C3AED" font-family="sans-serif" font-size="16" font-weight="bold">Responsive Design System</text>
+  <rect x="60" y="100" width="140" height="280" rx="12" fill="#281C4A" stroke="#4D3585" stroke-width="1"/>
+  <text x="130" y="240" fill="#D7E2EA" font-family="sans-serif" font-size="12" text-anchor="middle">Mobile</text>
+  <rect x="230" y="100" width="310" height="280" rx="12" fill="#281C4A" stroke="#4D3585" stroke-width="1"/>
+  <text x="385" y="240" fill="#D7E2EA" font-family="sans-serif" font-size="12" text-anchor="middle">Desktop / Tablet Grid</text>
+</svg>
