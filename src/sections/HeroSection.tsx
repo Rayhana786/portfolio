@@ -19,7 +19,7 @@ export const HeroSection: React.FC = () => {
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
-    const isSmallScreen = window.innerWidth < 640;
+    
 
     const checkWebGL = () => {
       try {
@@ -35,8 +35,8 @@ export const HeroSection: React.FC = () => {
     };
 
     setShouldRender3D(
-      !isSmallScreen && !prefersReducedMotion && checkWebGL()
-    );
+  !prefersReducedMotion && checkWebGL()
+);
   }, []);
 
   const handleContactClick = () => {
