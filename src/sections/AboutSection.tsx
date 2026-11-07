@@ -17,7 +17,7 @@ import { GhostButton } from '../components/GhostButton.tsx';
 import { ContactButton } from '../components/ContactButton.tsx';
 
 // ─────────────────────────────────────────────
-// 3D CORNER OBJECTS
+// 3D OBJECTS
 // ─────────────────────────────────────────────
 
 type ObjectKind = 'code' | 'database' | 'layers' | 'shield';
@@ -28,35 +28,38 @@ interface CornerObjectProps {
 }
 
 function CodeObject({ color }: { color: string }) {
-  const material = (
-    <meshPhysicalMaterial
-      color={color}
-      metalness={0.65}
-      roughness={0.22}
-      clearcoat={1}
-    />
-  );
-
   return (
     <group>
-      <RoundedBox args={[0.16, 0.68, 0.25]} radius={0.055} smoothness={5} position={[-0.37, 0.19, 0]} rotation={[0, 0, -0.65]}>
-        {material}
-      </RoundedBox>
+      {[
+        [-0.37, 0.19, -0.65],
+        [-0.37, -0.19, 0.65],
+        [0.37, 0.19, 0.65],
+        [0.37, -0.19, -0.65],
+      ].map((p, i) => (
+        <RoundedBox
+          key={i}
+          args={[0.16, 0.68, 0.25]}
+          radius={0.055}
+          smoothness={5}
+          position={[p[0], p[1], 0]}
+          rotation={[0, 0, p[2]]}
+        >
+          <meshPhysicalMaterial
+            color={color}
+            metalness={0.65}
+            roughness={0.22}
+            clearcoat={1}
+          />
+        </RoundedBox>
+      ))}
 
-      <RoundedBox args={[0.16, 0.68, 0.25]} radius={0.055} smoothness={5} position={[-0.37, -0.19, 0]} rotation={[0, 0, 0.65]}>
-        {material}
-      </RoundedBox>
-
-      <RoundedBox args={[0.16, 0.68, 0.25]} radius={0.055} smoothness={5} position={[0.37, 0.19, 0]} rotation={[0, 0, 0.65]}>
-        {material}
-      </RoundedBox>
-
-      <RoundedBox args={[0.16, 0.68, 0.25]} radius={0.055} smoothness={5} position={[0.37, -0.19, 0]} rotation={[0, 0, -0.65]}>
-        {material}
-      </RoundedBox>
-
-      <RoundedBox args={[0.13, 1.05, 0.25]} radius={0.05} smoothness={5} rotation={[0, 0, 0.35]}>
-        {material}
+      <RoundedBox
+        args={[0.13, 1.05, 0.25]}
+        radius={0.05}
+        smoothness={5}
+        rotation={[0, 0, 0.35]}
+      >
+        <meshPhysicalMaterial color={color} metalness={0.65} roughness={0.22} clearcoat={1} />
       </RoundedBox>
     </group>
   );
@@ -65,15 +68,10 @@ function CodeObject({ color }: { color: string }) {
 function DatabaseObject({ color }: { color: string }) {
   return (
     <group>
-      {[-0.32, 0, 0.32].map((y, index) => (
-        <mesh key={index} position={[0, y, 0]}>
+      {[-0.32, 0, 0.32].map((y, i) => (
+        <mesh key={i} position={[0, y, 0]}>
           <cylinderGeometry args={[0.58, 0.58, 0.23, 48]} />
-          <meshPhysicalMaterial
-            color={color}
-            metalness={0.65}
-            roughness={0.23}
-            clearcoat={1}
-          />
+          <meshPhysicalMaterial color={color} metalness={0.65} roughness={0.23} clearcoat={1} />
         </mesh>
       ))}
     </group>
@@ -83,21 +81,16 @@ function DatabaseObject({ color }: { color: string }) {
 function LayersObject({ color }: { color: string }) {
   return (
     <group>
-      {[-0.34, 0, 0.34].map((y, index) => (
+      {[-0.34, 0, 0.34].map((y, i) => (
         <RoundedBox
-          key={index}
+          key={i}
           args={[1.05, 0.19, 0.78]}
           radius={0.09}
           smoothness={5}
-          position={[index * 0.12 - 0.12, y, index * 0.08 - 0.08]}
-          rotation={[0.12, -0.16, (index - 1) * 0.12]}
+          position={[i * 0.12 - 0.12, y, i * 0.08 - 0.08]}
+          rotation={[0.12, -0.16, (i - 1) * 0.12]}
         >
-          <meshPhysicalMaterial
-            color={color}
-            metalness={0.65}
-            roughness={0.22}
-            clearcoat={1}
-          />
+          <meshPhysicalMaterial color={color} metalness={0.65} roughness={0.22} clearcoat={1} />
         </RoundedBox>
       ))}
     </group>
@@ -128,12 +121,7 @@ function ShieldObject({ color }: { color: string }) {
 
   return (
     <mesh geometry={geometry} position={[0, 0, -0.1]}>
-      <meshPhysicalMaterial
-        color={color}
-        metalness={0.55}
-        roughness={0.2}
-        clearcoat={1}
-      />
+      <meshPhysicalMaterial color={color} metalness={0.55} roughness={0.2} clearcoat={1} />
     </mesh>
   );
 }
@@ -147,17 +135,11 @@ function CornerObject({ kind, color }: CornerObjectProps) {
     const group = groupRef.current;
 
     group.rotation.x = THREE.MathUtils.damp(
-      group.rotation.x,
-      pointer.y * 0.22,
-      4,
-      delta
+      group.rotation.x, pointer.y * 0.22, 4, delta
     );
 
     group.rotation.y = THREE.MathUtils.damp(
-      group.rotation.y,
-      pointer.x * 0.3,
-      4,
-      delta
+      group.rotation.y, pointer.x * 0.3, 4, delta
     );
 
     group.rotation.z += delta * 0.12;
@@ -175,13 +157,9 @@ function CornerObject({ kind, color }: CornerObjectProps) {
   );
 }
 
-// ─────────────────────────────────────────────
-// RESPONSIVE 3D ICON
-// ─────────────────────────────────────────────
-
 function ThreeDIcon({ kind, color }: CornerObjectProps) {
   return (
-    <div className="w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28">
+    <div className="w-14 h-14 min-[400px]:w-16 min-[400px]:h-16 sm:w-20 sm:h-20 lg:w-32 lg:h-32">
       <Canvas
         camera={{ position: [0, 0, 3.5], fov: 45 }}
         dpr={[1, 1.25]}
@@ -194,7 +172,6 @@ function ThreeDIcon({ kind, color }: CornerObjectProps) {
         <ambientLight intensity={1.4} />
         <directionalLight position={[3, 4, 5]} intensity={2.5} />
         <pointLight position={[-3, -2, 3]} intensity={1.5} color={color} />
-
         <CornerObject kind={kind} color={color} />
       </Canvas>
     </div>
@@ -208,18 +185,15 @@ function ThreeDIcon({ kind, color }: CornerObjectProps) {
 export const AboutSection: React.FC = () => {
 
   const handleContactClick = () => {
-    const contactSection = document.getElementById('contact');
-
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById('contact')?.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   const handleCvClick = () => {
     const link = document.createElement('a');
     link.href = '/projects/CV_raihana.pdf';
     link.download = 'CV_raihana.pdf';
-
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -229,152 +203,167 @@ export const AboutSection: React.FC = () => {
     <section
       id="about"
       className="
-        min-h-screen w-full relative
+        relative isolate w-full min-h-screen
         flex flex-col items-center justify-center
-        px-4 min-[400px]:px-5 sm:px-8 md:px-10
-        py-16 sm:py-20 lg:py-24
+        px-4 min-[400px]:px-5 sm:px-8 lg:px-12
+        py-20 sm:py-24 lg:py-16
         bg-[#0C0C0C]
         overflow-hidden
         select-none
       "
     >
 
-      {/* Top-left: 3D Code */}
-      <div className="absolute top-[2%] left-[1%] sm:top-[4%] sm:left-[3%] lg:top-[10%] lg:left-[5%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+      {/* 3D DECORATIONS */}
+
+      <div className="absolute top-[5%] left-[2%] sm:top-[8%] sm:left-[4%] lg:top-[8%] lg:left-[5%] z-0 pointer-events-none opacity-70 sm:opacity-90">
         <FadeIn delay={0.1} x={-40} y={0} duration={0.9}>
           <ThreeDIcon kind="code" color="#00E5FF" />
         </FadeIn>
       </div>
 
-      {/* Bottom-left: 3D Database */}
-      <div className="absolute bottom-[2%] left-[1%] sm:bottom-[4%] sm:left-[3%] lg:bottom-[12%] lg:left-[6%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+      <div className="absolute bottom-[5%] left-[2%] sm:bottom-[8%] sm:left-[4%] lg:bottom-[8%] lg:left-[5%] z-0 pointer-events-none opacity-70 sm:opacity-90">
         <FadeIn delay={0.25} x={-40} y={0} duration={0.9}>
           <ThreeDIcon kind="database" color="#38BDF8" />
         </FadeIn>
       </div>
 
-      {/* Top-right: 3D Layers */}
-      <div className="absolute top-[2%] right-[1%] sm:top-[4%] sm:right-[3%] lg:top-[10%] lg:right-[5%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+      <div className="absolute top-[5%] right-[2%] sm:top-[8%] sm:right-[4%] lg:top-[8%] lg:right-[5%] z-0 pointer-events-none opacity-70 sm:opacity-90">
         <FadeIn delay={0.15} x={40} y={0} duration={0.9}>
           <ThreeDIcon kind="layers" color="#7C3AED" />
         </FadeIn>
       </div>
 
-      {/* Bottom-right: 3D Shield */}
-      <div className="absolute bottom-[2%] right-[1%] sm:bottom-[4%] sm:right-[3%] lg:bottom-[12%] lg:right-[6%] z-10 pointer-events-none opacity-70 sm:opacity-90 lg:opacity-100">
+      <div className="absolute bottom-[5%] right-[2%] sm:bottom-[8%] sm:right-[4%] lg:bottom-[8%] lg:right-[5%] z-0 pointer-events-none opacity-70 sm:opacity-90">
         <FadeIn delay={0.3} x={40} y={0} duration={0.9}>
           <ThreeDIcon kind="shield" color="#10B981" />
         </FadeIn>
       </div>
 
-      {/* Main Content */}
+      {/* MAIN CONTENT */}
+
       <div className="
-        relative z-20
-        w-full max-w-5xl mx-auto
+        relative z-10
+        w-full max-w-[1440px] mx-auto
         flex flex-col items-center justify-center
         text-center
-        gap-7 sm:gap-9 lg:gap-12
+        gap-8 sm:gap-10 lg:gap-12
+        xl:gap-14
       ">
 
-        {/* Heading */}
+        {/* HEADING */}
+
         <FadeIn delay={0} y={40}>
           <h2
-            className="hero-heading font-black uppercase leading-none tracking-tight text-center break-words"
-            style={{ fontSize: 'clamp(2.75rem, 12vw, 160px)' }}
+            className="
+              hero-heading font-black uppercase
+              leading-[0.9] tracking-tight
+              text-center
+            "
+            style={{
+              fontSize: 'clamp(3rem, 10vw, 150px)',
+            }}
           >
             About me
           </h2>
         </FadeIn>
 
-        {/* Description */}
-        <div className="w-full px-2 sm:px-4">
+        {/* DESCRIPTION */}
+
+        <div className="w-full max-w-3xl px-3 sm:px-6">
           <AnimatedText
-            maxWidth="640px"
+            maxWidth="760px"
             text="I'm a Computer Science Engineering student at ESI Sidi Bel Abbès, focused on full-stack development. I enjoy building complete digital products: clean interfaces, solid backend systems, and databases that solve real problems. I'm also a cybersecurity student, curious about how systems work and how they can be made more secure, so I'm exploring ethical hacking and CTF challenges on the side. Let's build something great together!"
           />
         </div>
 
-        {/* Information Cards */}
+        {/* INFORMATION CARDS */}
+
         <FadeIn delay={0.2} y={30} className="w-full">
           <div className="
             grid grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
-            gap-3 sm:gap-4 lg:gap-6
+            gap-4 sm:gap-5 lg:gap-6
             w-full text-left
           ">
 
-            {/* Full-Stack Focus */}
+            {/* FULL STACK */}
+
             <div className="
-              min-w-0 rounded-2xl sm:rounded-3xl
+              group min-w-0 min-h-[190px]
+              rounded-2xl sm:rounded-3xl
               border border-[#D7E2EA]/20
-              bg-[#121212]/80
-              p-4 sm:p-5 lg:p-6
+              bg-[#121212]/90 backdrop-blur-sm
+              p-5 sm:p-6 lg:p-7
               flex flex-col justify-between
-              hover:border-[#00E5FF]/40
-              transition-colors shadow-lg
+              hover:border-[#00E5FF]/50
+              hover:-translate-y-1
+              transition-all duration-300 shadow-lg
             ">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#00E5FF]/10 text-[#00E5FF] flex items-center justify-center mb-4">
-                <Layers size={22} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#00E5FF]/10 text-[#00E5FF] flex items-center justify-center mb-5">
+                <Layers size={23} />
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-2">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-3">
                   Full-Stack Focus
                 </h3>
-
-                <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
+                <p className="text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Building responsive client interfaces with React, backed by Node.js &amp; Express APIs and structured databases.
                 </p>
               </div>
             </div>
 
-            {/* Cybersecurity Studies */}
+            {/* CYBERSECURITY */}
+
             <div className="
-              min-w-0 rounded-2xl sm:rounded-3xl
+              group min-w-0 min-h-[190px]
+              rounded-2xl sm:rounded-3xl
               border border-[#D7E2EA]/20
-              bg-[#121212]/80
-              p-4 sm:p-5 lg:p-6
+              bg-[#121212]/90 backdrop-blur-sm
+              p-5 sm:p-6 lg:p-7
               flex flex-col justify-between
-              hover:border-[#7C3AED]/40
-              transition-colors shadow-lg
+              hover:border-[#7C3AED]/50
+              hover:-translate-y-1
+              transition-all duration-300 shadow-lg
             ">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#7C3AED]/10 text-[#A78BFA] flex items-center justify-center mb-4">
-                <GraduationCap size={22} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#7C3AED]/10 text-[#A78BFA] flex items-center justify-center mb-5">
+                <GraduationCap size={23} />
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-2">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#D7E2EA] tracking-wide mb-3">
                   Cybersecurity Studies
                 </h3>
-
-                <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
+                <p className="text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Studying Cybersecurity at ESI Sidi Bel Abbès, exploring networking, artificial intelligence, software development, and system security.
                 </p>
               </div>
             </div>
 
-            {/* Security Curious */}
+            {/* SECURITY */}
+
             <div className="
-              min-w-0 rounded-2xl sm:rounded-3xl
+              group min-w-0 min-h-[190px]
+              rounded-2xl sm:rounded-3xl
               border border-[#10B981]/30
-              bg-[#0E1513]/80
-              p-4 sm:p-5 lg:p-6
+              bg-[#0E1513]/90 backdrop-blur-sm
+              p-5 sm:p-6 lg:p-7
               flex flex-col justify-between
               hover:border-[#10B981]/60
-              transition-colors shadow-lg
+              hover:-translate-y-1
+              transition-all duration-300 shadow-lg
               sm:col-span-2 lg:col-span-1
             ">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mb-4">
-                <ShieldCheck size={22} />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mb-5">
+                <ShieldCheck size={23} />
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-bold uppercase text-[#10B981] tracking-wide mb-2">
+                <h3 className="text-base sm:text-lg font-bold uppercase text-[#10B981] tracking-wide mb-3">
                   Security Curious
                 </h3>
-
-                <p className="text-xs sm:text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
+                <p className="text-sm text-[#D7E2EA]/70 font-light leading-relaxed">
                   Learning defense mechanisms, hands-on CTF problem solving, and understanding how to write secure code.
                 </p>
               </div>
@@ -383,12 +372,13 @@ export const AboutSection: React.FC = () => {
           </div>
         </FadeIn>
 
-        {/* Contact and CV Buttons */}
+        {/* ACTION BUTTONS */}
+
         <FadeIn delay={0.3} y={20}>
           <div className="
             flex flex-col min-[420px]:flex-row
             flex-wrap items-center justify-center
-            gap-3 sm:gap-4
+            gap-4 sm:gap-5
             w-full
           ">
             <ContactButton
